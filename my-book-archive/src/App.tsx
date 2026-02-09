@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import BookCard from './components/BookCard';
 import BookModal from './components/BookModal';
 import { Book, fetchBooks, createBook, updateBook, deleteBook } from './api/bookApi';
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search, Moon, Sun } from 'lucide-react';
 
 const sampleBooks = [
     {
@@ -49,6 +49,32 @@ function App() {
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingBook, setEditingBook] = useState<Book | undefined>();
+    const [darkMode, setDarkMode] = useState(false);
+
+    // Initialize dark mode from localStorage
+    useEffect(() => {
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        setDarkMode(savedDarkMode);
+        updateDarkMode(savedDarkMode);
+    }, []);
+
+    // Update dark mode class on html element
+    const updateDarkMode = (isDark: boolean) => {
+        const html = document.documentElement;
+        if (isDark) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+    };
+
+    // Toggle dark mode
+    const toggleDarkMode = () => {
+        const newDarkMode = !darkMode;
+        setDarkMode(newDarkMode);
+        localStorage.setItem('darkMode', newDarkMode.toString());
+        updateDarkMode(newDarkMode);
+    };
 
     // Fetch books on component mount
     useEffect(() => {
@@ -145,25 +171,34 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 transition-colors">
             {/* Header */}
-            <header className="bg-white shadow-md sticky top-0 z-40">
+            <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900">📚 Book Archive</h1>
-                            <p className="text-gray-600 text-sm mt-1">Manage your personal book catalog</p>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">📚 Book Archive</h1>
+                            <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">Manage your personal book catalog</p>
                         </div>
-                        <button
-                            onClick={() => {
-                                setEditingBook(undefined);
-                                setIsModalOpen(true);
-                            }}
-                            className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium shadow-md"
-                        >
-                            <Plus size={20} />
-                            Add Book
-                        </button>
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={toggleDarkMode}
+                                className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-200"
+                                title="Toggle dark mode"
+                            >
+                                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setEditingBook(undefined);
+                                    setIsModalOpen(true);
+                                }}
+                                className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors font-medium shadow-md"
+                            >
+                                <Plus size={20} />
+                                Add Book
+                            </button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -173,13 +208,13 @@ function App() {
                 {/* Search Bar */}
                 <div className="mb-8">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={20} />
                         <input
                             type="text"
                             placeholder="Search by book title or author..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+                            className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
                         />
                     </div>
                 </div>
@@ -189,15 +224,15 @@ function App() {
                     <div className="flex justify-center items-center py-20">
                         <div className="text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-                            <p className="text-gray-600">Loading books...</p>
+                            <p className="text-gray-600 dark:text-gray-300">Loading books...</p>
                         </div>
                     </div>
                 ) : filteredBooks.length === 0 ? (
                     <div className="text-center py-20">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
                             {books.length === 0 ? 'No Books Yet' : 'No Results Found'}
                         </h2>
-                        <p className="text-gray-600 mb-6">
+                        <p className="text-gray-600 dark:text-gray-300 mb-6">
                             {books.length === 0
                                 ? 'Start building your library by adding your first book!'
                                 : 'Try adjusting your search terms.'}
@@ -205,7 +240,7 @@ function App() {
                         {books.length === 0 && (
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors font-medium"
                             >
                                 <Plus size={20} />
                                 Add Your First Book

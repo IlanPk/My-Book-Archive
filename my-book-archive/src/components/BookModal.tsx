@@ -95,15 +95,15 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
                 {/* Header */}
-                <div className="flex justify-between items-center p-6 border-b border-gray-200">
-                    <h2 className="text-2xl font-bold text-gray-800">
+                <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
                         {book ? 'Edit Book' : 'Add New Book'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-1 hover:bg-gray-100 rounded-md transition-colors"
+                        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-gray-700 dark:text-gray-300"
                     >
                         <X size={24} />
                     </button>
@@ -113,7 +113,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
                     {/* Title */}
                     <div>
-                        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Book Title *
                         </label>
                         <input
@@ -123,14 +123,14 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
                             value={formData.title}
                             onChange={handleChange}
                             placeholder="Enter book title"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
                     </div>
 
                     {/* Author */}
                     <div>
-                        <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="author" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Author *
                         </label>
                         <input
@@ -140,14 +140,14 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
                             value={formData.author}
                             onChange={handleChange}
                             placeholder="Enter author name"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
                     </div>
 
                     {/* Description */}
                     <div>
-                        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Description
                         </label>
                         <textarea
@@ -157,13 +157,13 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
                             onChange={handleChange}
                             placeholder="Enter book description"
                             rows={3}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                         />
                     </div>
 
                     {/* Cover Image URL */}
                     <div>
-                        <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Cover Image URL *
                         </label>
                         <input
@@ -173,26 +173,26 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
                             value={formData.coverImage}
                             onChange={handleChange}
                             placeholder="https://example.com/image.jpg"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
                         <div className="flex gap-2 mt-2">
                             <button
                                 type="button"
                                 onClick={() => setFormData(prev => ({ ...prev, coverImage: `https://picsum.photos/seed/${Date.now()}/300/450` }))}
-                                className="px-3 py-1 bg-gray-100 rounded-md text-sm hover:bg-gray-200"
+                                className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md text-sm hover:bg-gray-200 dark:hover:bg-gray-600"
                             >
                                 Use Seed (picsum)
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setFormData(prev => ({ ...prev, coverImage: `https://picsum.photos/seed/sample-${Date.now()}/300/450` }))}
-                                className="px-3 py-1 bg-gray-100 rounded-md text-sm hover:bg-gray-200"
+                                className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md text-sm hover:bg-gray-200 dark:hover:bg-gray-600"
                             >
                                 Use Sample (picsum seed)
                             </button>
                         </div>
-                        <p className="text-xs text-gray-500 mt-2">You can also paste an image URL from Google Images or Pexels.</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">You can also paste an image URL from Google Images or Pexels.</p>
                         {formData.coverImage && (
                             <img
                                 src={formData.coverImage}
@@ -213,7 +213,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
                             onChange={handleChange}
                             className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
                         />
-                        <label htmlFor="isFavorite" className="ml-2 text-sm font-medium text-gray-700">
+                        <label htmlFor="isFavorite" className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                             Add to favorites
                         </label>
                     </div>
@@ -223,20 +223,20 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, book, onClose, onSave }) 
                         <button
                             type="button"
                             onClick={randomizeFields}
-                            className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                         >
                             Randomize
                         </button>
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                            className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md font-medium hover:bg-blue-600 transition-colors"
+                            className="flex-1 px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-md font-medium hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
                         >
                             {book ? 'Update' : 'Save'}
                         </button>

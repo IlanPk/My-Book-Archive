@@ -25,9 +25,9 @@ const BookCard: React.FC<BookCardProps> = ({ book, onEdit, onDelete, onToggleFav
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
             {/* Image Container */}
-            <div className="relative overflow-hidden bg-gray-200 h-64">
+            <div className="relative overflow-hidden bg-gray-200 dark:bg-gray-700 h-64">
                 <img
                     src={book.coverImage || PLACEHOLDER}
                     alt={book.title}
@@ -37,33 +37,33 @@ const BookCard: React.FC<BookCardProps> = ({ book, onEdit, onDelete, onToggleFav
                 {/* Favorite Button */}
                 <button
                     onClick={() => onToggleFavorite(book.id!, !book.isFavorite)}
-                    className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                    className="absolute top-3 right-3 p-2 bg-white dark:bg-gray-700 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                 >
                     <Heart
                         size={20}
-                        className={book.isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-400'}
+                        className={book.isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-400 dark:text-gray-400'}
                     />
                 </button>
             </div>
 
             {/* Content */}
             <div className="p-4">
-                <h3 className="text-lg font-bold text-gray-800 truncate">{book.title}</h3>
-                <p className="text-sm text-gray-600 mb-2">by {book.author}</p>
-                <p className="text-sm text-gray-700 line-clamp-2 mb-4">{book.description}</p>
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white truncate">{book.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">by {book.author}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-400 line-clamp-2 mb-4">{book.description}</p>
 
                 {/* Action Buttons */}
                 <div className="flex gap-2">
                     <button
                         onClick={() => onEdit(book)}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors text-sm font-medium"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors text-sm font-medium"
                     >
                         <Edit2 size={16} />
                         Edit
                     </button>
                     <button
                         onClick={() => onDelete(book.id!)}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors text-sm font-medium"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-500 dark:bg-red-600 text-white rounded-md hover:bg-red-600 dark:hover:bg-red-700 transition-colors text-sm font-medium"
                     >
                         <Trash2 size={16} />
                         Delete
